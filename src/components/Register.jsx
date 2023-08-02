@@ -32,7 +32,7 @@ const Register = () => {
   useEffect(() => {
     const result = USER_REGEX.test(user);
     console.log(result);
-    console.log(user);
+    console.log("user",user);
     setValidName(result);
   }, [user]);
 
@@ -40,10 +40,11 @@ const Register = () => {
   useEffect(() => {
     const result = PWD_REGEX.test(password);
     console.log(password);
-    console.log(result);
+    console.log("password",result);
     setValidPass(result);
     const match = password === matchPass;
-    setmatchPass(match);
+    console.log("match",match)
+    setValidMatch(match);
   }, [password, matchPass]);
 
   // error msg
@@ -88,7 +89,7 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
             aria-invalid={validPass?"false":"true"}
-            aria-describedby="pwdonte"
+            aria-describedby="pwdnote"
             onFocus={()=>setPassFocus(true)}
             onBlur={()=>setPassFocus(false)}
           />
@@ -98,6 +99,26 @@ const Register = () => {
                             Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                         </p>
         </div>
+
+        <div>
+          <label htmlFor="confirm_pass">confirm password</label>
+          <input
+            id="confirm_pass"
+            type="password"
+          // password doesnt support autocomplete & autocorrect
+
+            onChange={(e) => setmatchPass(e.target.value)}
+            required
+            aria-invalid={validPass?"false":"true"}
+            aria-describedby="confirmnote"
+            onFocus={()=>setMatchFocus(true)}
+            onBlur={()=>setMatchFocus(false)}
+          />
+          <p id="confirmnote">
+         must match the first password input field
+                        </p>
+        </div>
+<button disabled={!validMatch || !validName || !validPass ? true : false }>sign up</button>
       </form>
     </section>
   );
