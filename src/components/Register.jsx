@@ -55,7 +55,7 @@ const Register = () => {
       <h1> Register</h1>
 
       <form>
-        jjjj
+       
         <div>
           <label htmlFor="username">userName</label>
           <input
@@ -76,6 +76,27 @@ const Register = () => {
             Must begin with a letter.<br/>
             Letters,numbers, underscores, hyphens allowed
           </p>
+        </div>
+
+        <div>
+          <label htmlFor="password">password</label>
+          <input
+            id="password"
+            type="password"
+          // password doesnt support autocomplete & autocorrect
+
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            aria-invalid={validPass?"false":"true"}
+            aria-describedby="pwdonte"
+            onFocus={()=>setPassFocus(true)}
+            onBlur={()=>setPassFocus(false)}
+          />
+          <p id="pwdnote">
+          8 to 24 characters.<br />
+                            Must include uppercase and lowercase letters, a number and a special character.<br />
+                            Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                        </p>
         </div>
       </form>
     </section>
