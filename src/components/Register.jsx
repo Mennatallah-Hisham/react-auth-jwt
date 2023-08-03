@@ -84,8 +84,9 @@ const Register = () => {
         setErrMsg("registration failed")
       }
   
+      errRef.current.focus();
      }
-     errRef.current.focus();
+ 
    
 
 
