@@ -1,7 +1,9 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect ,useContext } from "react";
 import axios from "../API/axios";
+import AuthContext from "../context/AuthProvider";
 const Login = () => {
   // to set focus on first input and on error
+  const {setAuth} = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
 
@@ -32,6 +34,7 @@ const Login = () => {
             console.log("loged in")
 
             setSuccess(true);
+            setAuth(true);
         }else{
             // username found but wrong password
             setErrMsg("wrong password or username")
