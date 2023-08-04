@@ -26,15 +26,21 @@ const Login = () => {
 
     e.preventDefault();
     try{
-        const response = await axios.get(`/users?username=${user}`);
-        console.log(response);
+        const response = await axios.get(`/users?username=${user}`,{
+            headers:{"Content-type":"application/json"}
+            , 
+            withCredentials:true,
+        });
+    
         const userData=response.data[0];
 
         if(user===userData.username && password===userData.password ){
-            console.log("loged in")
-
+          // store user , password, roles ,access token in auth
+          setAuth({user, password});
+           setUser(" ");
+           setPass(" ");
             setSuccess(true);
-            setAuth(true);
+          
         }else{
             // username found but wrong password
             setErrMsg("wrong password or username")
@@ -44,10 +50,17 @@ const Login = () => {
     
     }catch(e){
         console.log(e)
-        if(e.response?.status===200){
+        if(!e.response){
+          setErrMsg("server not responding ")
+        }else if(e.response?.status===200){
             // retrun empty array
-            setErrMsg("wrong password or username")
-        }else{
+            setErrMsg("user not found")
+        }else if(e.response?.status===400){
+          setErrMsg("missing username or password")
+        }else if(e.response?.status===401){
+          setErrMsg("unauthorized")
+        }
+        else{
             setErrMsg("login failed")
         }
 
@@ -61,6 +74,7 @@ const Login = () => {
         success ? (
             <section>
                 <h1>you are now logged in!</h1>
+                <p> go to home</p>
 
             </section>
         ):
