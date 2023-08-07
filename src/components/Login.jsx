@@ -1,9 +1,10 @@
-import { useRef, useState, useEffect ,useContext } from "react";
+import { useRef, useState, useEffect } from "react";
 import axios from "../API/axios";
-import AuthContext from "../context/AuthProvider";
+import useAuth from "../hooks/useAuth";
 const Login = () => {
-  // to set focus on first input and on error
-  const {setAuth} = useContext(AuthContext);
+
+  const {setAuth} = useAuth();
+    // to set focus on first input and on error
   const userRef = useRef();
   const errRef = useRef();
 
